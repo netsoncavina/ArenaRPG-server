@@ -1,4 +1,15 @@
+import mongoose from "mongoose";
 import app from "./app.js";
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
-});
+
+const PORT = process.env.PORT || 5000;
+const DB_CONNECTION =
+  "mongodb+srv://netson:cwxy4Keg4ODkTTRe@cluster0.e3ugm.mongodb.net/HeroisDoRPG?retryWrites=true&w=majority";
+mongoose
+  .connect(DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() =>
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+  )
+  .catch((error) => console.log(error.message));
