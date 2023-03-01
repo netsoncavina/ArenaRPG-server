@@ -13,6 +13,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  system: {
+    type: String,
+    required: true,
+  },
   type: {
     type: String,
     required: true,
@@ -26,3 +30,7 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+const Post = mongoose.model("Post", postSchema);
+
+export default Post;
