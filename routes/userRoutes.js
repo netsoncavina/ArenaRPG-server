@@ -1,12 +1,23 @@
 import express from "express";
 import User from "../models/user.js";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
 // POST
 router.post("/", async (req, res) => {
+  const { name, nickName, email, password, picture } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const user = new User({
+    name,
+    nickName,
+    email,
+    password: hashedPassword,
+    picture,
+  });
   try {
-    const user = await User.create(req.body);
+    const result = await User.create(user);
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
