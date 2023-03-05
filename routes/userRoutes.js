@@ -36,9 +36,9 @@ router.get("/", async (req, res) => {
 
 // login
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { nickName, password } = req.body;
   try {
-    const existingUser = await User.findOne({ email: email });
+    const existingUser = await User.findOne({ nickName: nickName });
     if (!existingUser) {
       return res.status(404).json({ message: "User doesn't exist." });
     }
