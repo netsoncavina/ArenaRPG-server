@@ -13,13 +13,30 @@ describe("Users", () => {
   it("should create a new user", () => {
     return supertest(app)
       .post("/users")
-      .send({ name: "Netson Cavina" })
+      .send({
+        name: "Netson Cavina",
+        nickName: "VoidNoxian",
+        picture: "foto",
+        email: "netsoncavina@gmail.com",
+        password: "senha123",
+      })
+      .expect("Content-Type", /json/)
       .expect(201)
       .then((response) => {
-        expect(response.body).toBeInstanceOf(Object);
-        expect(response.body.name).toBe("Netson Cavina");
+        expect(response.body).toEqual(
+          expect.objectContaining({
+            __v: expect.any(Number),
+            _id: expect.any(String),
+            name: "Netson Cavina",
+            nickName: "VoidNoxian",
+            picture: "foto",
+            email: "netsoncavina@gmail.com",
+            password: "senha123",
+          })
+        );
       });
   });
+
   it("should an array of users", () => {
     return supertest(app)
       .get("/users")

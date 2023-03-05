@@ -32,9 +32,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/user/:name", async (req, res) => {
+router.get("/user/:nickName", async (req, res) => {
   try {
-    const user = await User.find({ name: req.params.name });
+    const user = await User.find({ nickName: req.params.nickName });
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
