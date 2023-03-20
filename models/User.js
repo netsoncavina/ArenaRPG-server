@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema({
   },
   picture: {
     type: String,
+    default: function () {
+      return Math.floor(Math.random() * 20);
+    },
   },
   email: {
     type: String,
