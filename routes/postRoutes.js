@@ -13,6 +13,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Add comments
+router.post("/comment/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    post.comments.push(req.body);
+    await post.save();
+    res.status(201).json(post);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // GET
 router.get("/", async (req, res) => {
   try {
