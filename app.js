@@ -8,7 +8,7 @@ import commentRoutes from "./routes/commentRoutes.js";
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
