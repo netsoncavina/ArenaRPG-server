@@ -35,6 +35,15 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.statics.login = function (id, callback) {
+  return this.findByIdAndUpdate(
+    id,
+    { $set: { lastLogin: Date.now() } },
+    { new: true },
+    callback
+  );
+};
+
 const User = mongoose.model("User", userSchema);
 
 export default User;
