@@ -64,10 +64,12 @@ router.get("/post/:type", async (req, res) => {
 
 // PATCH
 router.patch("/:id", async (req, res) => {
+  req.body.edited = true;
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });
