@@ -29,7 +29,11 @@ const postSchema = new mongoose.Schema({
     type: [Object],
     default: [],
   },
-    likes: {
+  likes: {
+    type: [String],
+    default: [],
+  },
+  deslikes: {
     type: [String],
     default: [],
   },
