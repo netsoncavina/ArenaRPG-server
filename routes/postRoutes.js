@@ -101,6 +101,31 @@ router.patch("/like/:id", async (req, res) => {
   }
 });
 
+// DESLIKE
+router.patch("/deslike/:id", async (req, res) => {
+  let post = await Post.findById(req.params.id);
+  if (!post) {
+    res.status(404).json({ message: "Post not found" });
+  }
+
+  try {
+    if (post.deslikes.includes(req.body.userId)) {
+      post.deslikes = post.deslikes.filter((id) => id !== req.body.userId);
+    } else {
+      if (post.likes.includes(req.body.userId)) {
+        post.likes = post.likes.filter((id) => id !== req.body.userId);
+      }
+      post.deslikes.push(req.body.userId);
+    }
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id, post, {
+      new: true,
+    });
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // DELETE
 router.delete("/:id", async (req, res) => {
   try {
